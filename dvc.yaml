@@ -1,0 +1,71 @@
+stages:
+
+  data_ingestion:
+    cmd: python src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_01_data_ingestion.py
+      - config/config.yaml
+    outs:
+      - artifacts/data_ingestion/data
+
+
+
+  prepare_base_model:
+    cmd: python src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_02_prepare_base_model.py
+      - config/config.yaml
+    params:
+      - IN_FEATURES
+      - CLASSES
+      - PRETRAINED
+      - FREEZE_ALL
+      - FREEZE_TILL
+      - SEED
+    outs:
+      - artifacts/prepare_base_model
+
+
+
+  training:
+    cmd: python src/cnnClassifier/pipeline/stage_03_training.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_03_training.py
+      - src/cnnClassifier/components/prepare_callbacks.py
+      - config/config.yaml
+      - artifacts/data_ingestion/data
+      - artifacts/prepare_base_model
+    params:
+      - EPOCHS
+      - CLASSES
+      - BATCH_SIZE
+      - IS_AUGMENTATION
+      - IMAGE_SIZE
+      - LEARNING_RATE
+      - DEVICE
+      - NUM_WORKERS
+    outs:
+      - artifacts/training/best_model.pt
+      - artifacts/training/last_model.pt
+      # - artifacts/training/results.csv
+
+
+
+  evaluation:
+    cmd: python src/cnnClassifier/pipeline/stage_04_evaluation.py
+    deps:
+      - src/cnnClassifier/pipeline/stage_04_evaluation.py
+      - config/config.yaml
+      - artifacts/data_ingestion/data
+      - artifacts/training/best_model.pt
+    params:
+      - IMAGE_SIZE
+      - BATCH_SIZE
+      - CLASSES
+      - DEVICE
+      - NUM_WORKERS
+      - SEED
+      - LEARNING_RATE
+    metrics:
+    - artifacts/evaluation/score_metrics.json:
+        cache: false

@@ -1,1 +1,1 @@
-# Chicken-Disease-Classification-Projects-MLOps
+# Food-Vison-MLOps-Projects

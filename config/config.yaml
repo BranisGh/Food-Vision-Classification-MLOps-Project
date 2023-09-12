@@ -1,0 +1,38 @@
+artifacts_root: artifacts
+
+
+data_ingestion:
+  root_dir: artifacts/data_ingestion
+  source_URL: "https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data/pizza_steak_sushi_20_percent.zip" # https://github.com/mrdbourke/pytorch-deep-learning/raw/main/data/pizza_steak_sushi.zip 
+  local_data_file: artifacts/data_ingestion/data.zip
+  unzip_dir: artifacts/data_ingestion/data
+
+
+
+prepare_base_model:
+  root_dir: artifacts/prepare_base_model
+  base_model_path: artifacts/prepare_base_model/base_model.pt
+  updated_base_model_path: artifacts/prepare_base_model/base_model_updated.pt
+
+
+
+
+prepare_callbacks:
+  root_dir: artifacts/prepare_callbacks
+  tensorboard_root_log_dir: artifacts/prepare_callbacks/tensorboard_log_dir
+
+
+
+
+training:
+  root_dir: artifacts/training
+  trained_last_model_filepath: artifacts/training/last_model.pt
+  trained_best_model_filepath: artifacts/training/best_model.pt
+  results_training_model_filepath: artifacts/training/results.csv
+
+
+evaluation:
+  root_dir: artifacts/evaluation
+  data_path: artifacts/data_ingestion/data/test
+  checkpoint_best_model_path: artifacts/training/best_model.pt
+  score_evaluation_filepath: artifacts/evaluation/score_metrics.json
