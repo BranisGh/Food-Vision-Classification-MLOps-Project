@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from pathlib import Path
+import box
 
 
 @dataclass(frozen=True)
@@ -66,3 +67,12 @@ class EvaluationConfig:
     params_num_workers: int
     params_seed: int
     params_learning_rate: float
+
+
+@dataclass(frozen=True)
+class PredictionConfig:
+    checkpoint_best_model_path: Path
+    params_seed: int
+    params_classes_name: box.config_box.ConfigBox
+    params_device: str
+    

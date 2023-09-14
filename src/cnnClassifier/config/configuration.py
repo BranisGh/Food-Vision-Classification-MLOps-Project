@@ -4,9 +4,13 @@ from cnnClassifier.entity.config_entity import (DataIngestionConfig,
                                                 PrepareBaseModelConfig,
                                                 PrepareCallbacksConfig,
                                                 TrainingConfig,
-                                                EvaluationConfig)
+                                                EvaluationConfig,
+                                                PredictionConfig)
 import os 
 from pathlib import Path
+
+
+
 
 class ConfigurationManager:
     def __init__(
@@ -146,4 +150,20 @@ class ConfigurationManager:
             params_learning_rate = params.LEARNING_RATE
         )
         return eval_config
+    
+
+    def get_prediction_config(self) -> PredictionConfig:
+        
+        checkpoint_best_model_path = self.config.evaluation.checkpoint_best_model_path
+        params = self.params
+        
+        
+        predict_config = PredictionConfig(
+            checkpoint_best_model_path=Path(checkpoint_best_model_path),
+            params_seed = params.SEED,
+            params_classes_name= params.CLASSES_NAME,
+            params_device=params.DEVICE
+        )
+
+        return predict_config
 
