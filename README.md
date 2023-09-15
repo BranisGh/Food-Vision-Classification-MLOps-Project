@@ -20,7 +20,7 @@
 Clone the repository
 
 ```bash
-https://github.com/entbappy/food-Disease-Classification--Project
+https://github.com/BranisGh/Food-Vision-Classification-MLOps-Project
 ```
 ### STEP 01- Create a conda environment after opening the repository
 
