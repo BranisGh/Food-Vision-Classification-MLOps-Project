@@ -1,8 +1,12 @@
 IS_AUGMENTATION: True
 IMAGE_SIZE: [3, 224, 224] 
 BATCH_SIZE: 32
-EPOCHS: 1
+EPOCHS: 100
 CLASSES: 3
+CLASSES_NAME: 
+  0: 'pizza'
+  1: 'steak'
+  2: 'sushi'
 WEIGHTS: 'imagenet'
 LEARNING_RATE: 0.001
 DEVICE: 'cuda'
